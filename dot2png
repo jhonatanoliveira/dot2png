@@ -15,7 +15,7 @@ file = None
 if args.output:
     file = open(args.output, "w")
 else:
-    file = open(args.dotfile + ".jpg", "w")
+    file = open(args.dotfile + ".png", "w")
 
 
 subprocess.call(["dot", "-Tpng", args.dotfile + ".dot"], stdout=file)
