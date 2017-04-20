@@ -1,0 +1,21 @@
+#!/usr/local/bin/python3
+
+import subprocess
+import argparse
+
+# Argument parser
+parser = argparse.ArgumentParser()
+parser.add_argument("dotfile", help="Input DOT file name (without the '.dot')")
+parser.add_argument("-o","--output", help="Output file name for image")
+args = parser.parse_args()
+
+args.dotfile = args.dotfile.replace(".dot","")
+
+file = None
+if args.output:
+    file = open(args.output, "w")
+else:
+    file = open(args.dotfile + ".jpg", "w")
+
+
+subprocess.call(["dot", "-Tpng", args.dotfile + ".dot"], stdout=file)
