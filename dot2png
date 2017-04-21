@@ -6,16 +6,23 @@ import argparse
 # Argument parser
 parser = argparse.ArgumentParser()
 parser.add_argument("dotfile", help="Input DOT file name (without the '.dot')")
+parser.add_argument("-v","--view", help="Open PNG file after converting", action="store_true")
 parser.add_argument("-o","--output", help="Output file name for image")
 args = parser.parse_args()
 
 args.dotfile = args.dotfile.replace(".dot","")
 
-file = None
+addr = None
 if args.output:
-    file = open(args.output, "w")
+    addr = args.output.replace("png", "")
 else:
-    file = open(args.dotfile + ".png", "w")
+    addr = args.dotfile
+output_path = addr + ".png"
+
+file = open(output_path, "w")
 
 
 subprocess.call(["dot", "-Tpng", args.dotfile + ".dot"], stdout=file)
+
+if args.view:
+    subprocess.run(["open", output_path])
